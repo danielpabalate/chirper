@@ -21,7 +21,11 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('sample.index')" :active="request()->routeIs('sample.index')">
-                        {{ __('Sample') }}
+                        {{ __('Sample Calculator') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
+                        {{ __('Sample Products') }}
                     </x-nav-link>
                     
                 </div>

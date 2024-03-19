@@ -2,17 +2,18 @@
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
         <form method="POST" action="{{ route('sample.store') }}">
             @csrf
-            <div class="flex space-x-4"> <!-- Use flex and space-x to place the children with spacing -->
+            <div class="flex space-x-4">
                 <div class="flex-1">
                     <input
                         type="text"
                         name="number1"
                         placeholder="{{ __('Give me a number') }}"
                         class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        pattern="[1-9]\d{0,2}"
-                        maxlength="3"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                        pattern="[0-9]+(\.[0-9]+)?"
+                        maxlength="10"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
                         value="{{ old('number1') }}"
+                        autocomplete="off"
                     >
                     <x-input-error :messages="$errors->get('number1')" class="mt-2" />
                 </div>
@@ -23,14 +24,16 @@
                         name="number2"
                         placeholder="{{ __('Give me a number') }}"
                         class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        pattern="[1-9]\d{0,2}"
-                        maxlength="3"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                        pattern="[0-9]+(\.[0-9]+)?"
+                        maxlength="10"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
                         value="{{ old('number2') }}"
+                        autocomplete="off"
                     >
                     <x-input-error :messages="$errors->get('number2')" class="mt-2" />
                 </div>
             </div>
+
 
             <select
                 name="solution"
@@ -81,6 +84,7 @@
                     }
                 @endphp
 
+                @if ($sample->user->is(auth()->user()))
                 <div class="p-6 flex space-x-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -95,7 +99,6 @@
                                 @endunless
                             </div>
 
-                            @if ($sample->user->is(auth()->user()))
                                 <x-dropdown>
                                     <x-slot name="trigger">
                                         <button>
@@ -117,7 +120,7 @@
                                         </form>
                                     </x-slot>
                                 </x-dropdown>
-                            @endif
+                            
 
                         </div>
                         <p class="mt-4 text-lg text-gray-900">
@@ -125,7 +128,10 @@
                         </p>
                     </div>
                 </div>
+                @endif
             @endforeach
+
+            
         </div>
     </div>
 </x-app-layout>

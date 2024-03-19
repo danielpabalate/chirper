@@ -38,8 +38,8 @@ class SampleController extends Controller
     public function store(Request $request): RedirectResponse
     {
     $validated = $request->validate([
-        'number1' => 'required|string|max:3',
-        'number2' => 'required|string|max:3',
+        'number1' => 'required|string|max:9',
+        'number2' => 'required|string|max:9',
         'solution' => 'required|string|max:255',
     ]);
 
